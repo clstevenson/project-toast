@@ -24,7 +24,11 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {toastDisplay && <Toast message={message} variant={variant} handleClose={handleClose}/>}
+      {toastDisplay && (
+        <Toast variant={variant} handleClose={handleClose}>
+          {message}
+        </Toast>
+      )}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -59,7 +63,7 @@ function ToastPlayground() {
                     type="radio"
                     name="variant"
                     value={option}
-                    checked={variant===option}
+                    checked={variant === option}
                     onChange={e => setVariant(e.target.value)}
                   />
                   {option}
@@ -75,10 +79,7 @@ function ToastPlayground() {
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
             <Button
-              onClick={() => {
-                const display = !toastDisplay;
-                setToastDisplay((prev) => !prev)
-              }}
+              onClick={() => setToastDisplay(true)}
             >
               Pop Toast!
             </Button>

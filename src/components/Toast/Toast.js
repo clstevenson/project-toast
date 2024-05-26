@@ -18,7 +18,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ message, variant, handleClose }) {
+function Toast({ children, variant, handleClose }) {
   const IconTag = ICONS_BY_VARIANT[variant];
 
   return (
@@ -27,7 +27,7 @@ function Toast({ message, variant, handleClose }) {
         <IconTag size={24} />
       </div>
       <p className={`styles.${variant}`}>
-        {message}
+        {children}
       </p>
       <button
         className={styles.closeButton}
