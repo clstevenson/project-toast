@@ -13,7 +13,7 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   // state for stack of messages
-  const { toastMessages, addToast, removeToast } = React.useContext(ToastContext);
+  const { addToast } = React.useContext(ToastContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

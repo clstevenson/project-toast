@@ -29,7 +29,7 @@ export default function ToastProvider({ children }) {
 
   // let's combine everything into a memo-ized object
   const value = React.useMemo(() => {
-    return { toastMessages, setToastMessages, removeToast, addToast }
+    return { toastMessages, removeToast, addToast }
   }, [toastMessages, removeToast, addToast])
 
   return (
