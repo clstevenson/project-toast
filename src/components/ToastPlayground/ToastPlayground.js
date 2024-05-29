@@ -4,8 +4,8 @@ import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
 
-import Toast from '../Toast';
 import ToastShelf from '../ToastShelf';
+import { ToastContext } from '../ToastProvider';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
@@ -13,36 +13,11 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   // state for stack of messages
-  const [toastMessages, setToastMessages] = React.useState([
-    {
-      id: crypto.randomUUID(),
-      variant: 'notice',
-      message: 'Example notice toast',
-    },
-    {
-      id: crypto.randomUUID(),
-      variant: 'error',
-      message: 'Example error toast',
-    },
-  ])
-
-  // need to remove a single toast message
-  const handleClose = (id) => {
-    const toastArray = toastMessages.filter(toast => toast.id !== id);
-
-    setToastMessages([...toastArray]);
-  }
+  const { toastMessages, addToast, removeToast } = React.useContext(ToastContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    // push new message onto stack
-    const newToast = {
-      id: crypto.randomUUID(),
-      variant: variant,
-      message: message,
-    };
-    setToastMessages([...toastMessages, newToast]);
+    addToast({ variant, message });
 
     // reset form
     setMessage('');
@@ -56,7 +31,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toastMessages={toastMessages} handleClose={handleClose} />
+      <ToastShelf />
 
       <form
         className={styles.controlsWrapper}
