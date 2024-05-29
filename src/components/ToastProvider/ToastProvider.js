@@ -16,8 +16,6 @@ export default function ToastProvider({ children }) {
     setToastMessages([...toastArray]);
   }
 
-  const clearToasts = () => setToastMessages([]);
-
   // CB to add a toast message to the existing stack
   const addToast = ({ variant, message }) => {
     // push new message onto stack
@@ -29,9 +27,22 @@ export default function ToastProvider({ children }) {
     setToastMessages([...toastMessages, newToast]);
   }
 
+  // event listener for ESC to clear all posts
+  React.useEffect(() => {
+    const handleKeyDown = (evt) => {
+      if (evt.code === 'Escape') setToastMessages([]);
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [])
+
   // let's combine everything into a memo-ized object
   const value = React.useMemo(() => {
-    return { toastMessages, removeToast, addToast, clearToasts }
+    return { toastMessages, removeToast, addToast }
   }, [toastMessages, addToast, removeToast])
 
   return (
