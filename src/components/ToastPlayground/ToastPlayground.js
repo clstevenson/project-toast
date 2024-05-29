@@ -43,9 +43,7 @@ function ToastPlayground() {
       variant: variant,
       message: message,
     };
-    const toastArray = [...toastMessages];
-    toastArray.push(newToast);
-    setToastMessages([...toastArray]);
+    setToastMessages([...toastMessages, newToast]);
 
     // reset form
     setMessage('');
