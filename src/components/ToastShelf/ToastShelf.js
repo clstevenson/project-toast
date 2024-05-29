@@ -7,7 +7,21 @@ import { ToastContext } from '../ToastProvider';
 
 function ToastShelf() {
 
-  const { toastMessages } = React.useContext(ToastContext);
+  const { toastMessages, clearToasts } = React.useContext(ToastContext);
+
+  React.useEffect(() => {
+    const handleKeyDown = (evt) => {
+      if (evt.code === 'Escape') clearToasts();
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // clean up event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+
+  }, [toastMessages, clearToasts]);
 
   return (
     <ol className={styles.wrapper}>

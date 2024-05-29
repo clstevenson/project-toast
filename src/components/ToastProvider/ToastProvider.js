@@ -16,6 +16,8 @@ export default function ToastProvider({ children }) {
     setToastMessages([...toastArray]);
   }
 
+  const clearToasts = () => setToastMessages([]);
+
   // CB to add a toast message to the existing stack
   const addToast = ({ variant, message }) => {
     // push new message onto stack
@@ -29,8 +31,8 @@ export default function ToastProvider({ children }) {
 
   // let's combine everything into a memo-ized object
   const value = React.useMemo(() => {
-    return { toastMessages, removeToast, addToast }
-  }, [toastMessages, removeToast, addToast])
+    return { toastMessages, removeToast, addToast, clearToasts }
+  }, [toastMessages, addToast, removeToast])
 
   return (
     <ToastContext.Provider value={value}>
