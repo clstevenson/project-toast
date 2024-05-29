@@ -26,11 +26,10 @@ function ToastPlayground() {
     },
   ])
 
-  // this doesn't work quite right, only pops off the top of the stack of messages
-  // better would be to figure out which message was closed and eliminate that one
-  const handleClose = () => {
-    const toastArray = [...toastMessages];
-    toastArray.pop();
+  // need to remove a single toast message
+  const handleClose = (id) => {
+    const toastArray = toastMessages.filter(toast => toast.id !== id);
+
     setToastMessages([...toastArray]);
   }
 

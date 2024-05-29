@@ -10,7 +10,9 @@ function ToastShelf({ toastMessages, handleClose }) {
       {toastMessages.map((toast) => {
         return (
           <li key={toast.id} className={styles.toastWrapper}>
-            <Toast variant={toast.variant} handleClose={handleClose}>{toast.message}</Toast>
+            <Toast id={toast.id} variant={toast.variant} handleClose={handleClose}>
+              {toast.message}
+            </Toast>
           </li>
         )
       })}
