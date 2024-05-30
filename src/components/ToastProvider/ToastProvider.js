@@ -2,7 +2,7 @@
 // props for each object: message and variant
 
 import React from 'react';
-import useEscapeKey from '../../hooks/useEscapeKey';
+import useEscapeClear from '../../hooks/use-escape-clear';
 
 export const ToastContext = React.createContext();
 
@@ -29,7 +29,7 @@ export default function ToastProvider({ children }) {
   }
 
   // custom hook to set ESC to dismiss all toasts
-  useEscapeKey(() => setToastMessages([]));
+  useEscapeClear(() => setToastMessages([]));
 
   return (
     <ToastContext.Provider value={{ toastMessages, removeToast, addToast }}>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default function useEscapeKey(handleClear) {
+export default function useEscapeClear(handleClear) {
   React.useEffect(() => {
     const handleKeyDown = (evt) => {
       if (evt.code === 'Escape') handleClear();
