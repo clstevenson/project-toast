@@ -2,6 +2,7 @@
 // props for each object: message and variant
 
 import React from 'react';
+import useEscapeKey from '../../hooks/useEscapeKey';
 
 export const ToastContext = React.createContext();
 
@@ -27,26 +28,11 @@ export default function ToastProvider({ children }) {
     setToastMessages([...toastMessages, newToast]);
   }
 
-  // event listener for ESC to clear all posts
-  React.useEffect(() => {
-    const handleKeyDown = (evt) => {
-      if (evt.code === 'Escape') setToastMessages([]);
-    }
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [])
-
-  // let's combine everything into a memo-ized object
-  const value = React.useMemo(() => {
-    return { toastMessages, removeToast, addToast }
-  }, [toastMessages, addToast, removeToast])
+  // custom hook to set ESC to dismiss all toasts
+  useEscapeKey(() => setToastMessages([]));
 
   return (
-    <ToastContext.Provider value={value}>
+    <ToastContext.Provider value={{ toastMessages, removeToast, addToast }}>
       {children}
     </ToastContext.Provider>
   )
